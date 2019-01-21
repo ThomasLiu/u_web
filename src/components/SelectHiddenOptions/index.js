@@ -13,7 +13,7 @@ class SelectWithHiddenSelectedOptions extends Component {
   };
 
   componentDidMount() {
-    const { typeName, getSupports, option, field, record, intl } = this.props;
+    const { typeName, getSupports, option, field, record = {}, intl } = this.props;
     if (getSupports) {
       getSupports({ typeName }).then(res => {
         const { data } = res;

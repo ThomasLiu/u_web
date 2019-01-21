@@ -3,7 +3,8 @@ import { Form, Input, Switch, Select } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
 import SelectHiddenOptions from '../SelectHiddenOptions';
-import { Cropper } from 'u_webant';
+import Cropper from '../Cropper';
+import Support from '../Support';
 
 const { getIntl } = string;
 
@@ -25,15 +26,27 @@ class BaseForm extends Component {
 
 
   getInput = item => {
-    const { type, option, field, rows } = item;
+    const { type, option, field, rows, ...reProps} = item;
     const { origin, form } = this.props;
     if (type) {
       switch (type.toLowerCase()) {
+        case 'support': 
+          return (
+            <Support 
+              key={field} 
+              form={form}
+              name={field}
+              notFieldDecorator={true}
+              style={{ width: '100%' }}
+              {...reProps}
+            />
+          )
         case 'textarea': 
           return (
             <TextArea 
               key={field} 
               rows={rows || 4}
+              {...reProps}
             />
           )
         case 'img':
@@ -45,7 +58,7 @@ class BaseForm extends Component {
                 const url = `${origin}/${ret.key}`;
                 form.setFieldsValue({[field]: url});
               }}
-              {...item}
+              {...reProps}
               {...this.props}
             />
           )
@@ -60,11 +73,18 @@ class BaseForm extends Component {
           )
         case 'switch':
           return (
-            <Switch key={field} /> 
+            <Switch 
+              key={field} 
+              {...reProps}
+            /> 
           )
         case 'select':
           return (
-            <Select key={field} style={{minWidth: 120}}>
+            <Select 
+              key={field} 
+              style={{minWidth: 120}}
+              {...reProps}
+            >
               {
                 option.map( optionItem => (
                   <Option key={optionItem.value} value={optionItem.value}>{getIntl(intl, optionItem.titleKey, optionItem.label) }</Option>
@@ -73,14 +93,19 @@ class BaseForm extends Component {
             </Select>
           )
         default:
-          return (<Input key={field} />)
+          return (
+            <Input 
+              key={field} 
+              {...reProps}
+            />
+          )
       }
     }
     return (<Input />)
   }
 
   getFormItem = (item, formItemLayout ) => {
-    const { form, record } = this.props
+    const { form, record = {}, layout: formLayout } = this.props
     const { getFieldDecorator } = form;
     const { required, field, type, help } = item;
     let { label } =  item
@@ -102,18 +127,21 @@ class BaseForm extends Component {
     if (type && type.toLowerCase() === 'switch') {
       afterLabel = ( <span className="ml2">{label}</span> )
       label = null
-      layout = {
-        wrapperCol: { 
-          xs: {
-            span: 24,
-            offset: 0,
+      if (formLayout === 'horizontal') {
+        layout = {
+          wrapperCol: { 
+            xs: {
+              span: 24,
+              offset: 0,
+            },
+            sm: {
+              span: 15,
+              offset: 6,
+            },
           },
-          sm: {
-            span: 15,
-            offset: 6,
-          },
-        },
+        }
       }
+      
       fieldDecorator.valuePropName = 'checked'
     }
 
@@ -133,7 +161,7 @@ class BaseForm extends Component {
   }
 
   getFields() {
-    const { layout, children, keyArr, formItemLayout } = this.props
+    const { layout, children, keyArr = [], formItemLayout } = this.props
     switch (layout) {
       case 'horizontal':
         return (
