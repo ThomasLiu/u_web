@@ -27,7 +27,7 @@ class BaseForm extends Component {
 
   getInput = item => {
     const { type, option, field, rows, ...reProps} = item;
-    const { origin, form } = this.props;
+    const { origin, form, record = {} } = this.props;
     if (type) {
       switch (type.toLowerCase()) {
         case 'support': 
@@ -36,8 +36,8 @@ class BaseForm extends Component {
               key={field} 
               form={form}
               name={field}
-              notFieldDecorator={true}
               style={{ width: '100%' }}
+              value={record[field]}
               {...reProps}
             />
           )
@@ -153,7 +153,11 @@ class BaseForm extends Component {
         help={help}
       >
         { 
-          getFieldDecorator(field, fieldDecorator)(this.getInput(item))
+          (type && type.toLowerCase() === 'support') ? (
+            this.getInput(item)
+          ) : (
+            getFieldDecorator(field, fieldDecorator)(this.getInput(item))
+          )
         }
         { (type && type.toLowerCase() === 'switch') ? afterLabel : null }
       </FormItem>

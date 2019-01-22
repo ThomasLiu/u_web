@@ -13,12 +13,19 @@ class TestPage extends Component {
   }
   check = () => {
     const { form } = this.props;
-    const { test1, test2, test3 } = form.getFieldsValue()
-    console.log('check test1', test1)
-    console.log('check test2', test2)
-    console.log('check test3', test3)
+    
 
-    this.setState({ test1, test2, test3 })
+    form.validateFields((err, values) => {
+      if (!err) {
+        const { test1, test2, test3 } = values
+        console.log('check test1', test1)
+        console.log('check test2', test2)
+        console.log('check test3', test3)
+        this.setState({ test1, test2, test3 })
+      }
+    });
+
+    
   }
 
 
@@ -39,7 +46,7 @@ class TestPage extends Component {
         </Form.Item>
         <Form.Item>
           {
-            getFieldDecorator('test2', { initialValue: { key: 86 }})(
+            getFieldDecorator('test2', { initialValue: { key: 57 }})(
               <Support 
                 getSupports={getSupports}
                 name='test2'
@@ -53,7 +60,7 @@ class TestPage extends Component {
         </Form.Item>
         <Form.Item>
           {
-            getFieldDecorator('test3')(
+            getFieldDecorator('test3', { initialValue: 57})(
               <Support 
                 showSearch
                 style={{ width: 300 }}

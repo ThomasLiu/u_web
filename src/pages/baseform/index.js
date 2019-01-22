@@ -22,7 +22,6 @@ const keyArr = [
   {
     label: getIntl(intl, 'Footer type'),
     field: 'footertype',
-    required: true,
     placeholder: getIntl(intl, 'plz select one'),
   },
   {
@@ -65,23 +64,34 @@ const keyArr = [
     typeName: 'role',
   },
   {
+    label: getIntl(intl, 'multiple tags'),
+    field: 'authorityIds2',
+    type: 'select',
+    mode: "tags",
+    option
+  },
+  {
     label: getIntl(intl, 'Img'),
     field: 'img',
     type: 'img',
     uploadToken,
     aspectRatio: 1/1,
     avatarClassName: styles.imgUploader,
-  },
+  }
 ]
 
 class TestPage extends Component {
-
+  onSubmit = (values) => {
+    console.log('onSubmit values', values)
+  }
   render() {
     return (
       <BaseForm
+        record={{support: 57, authorityIds: [{ key: 242}, { key: 86}]}}
+        onSubmit={this.onSubmit} 
         keyArr={keyArr}
       >
-      
+        <Button type="primary" htmlType="submit">{getIntl(intl, 'base.create', 'Create')}</Button>
       </BaseForm>
     )
   }

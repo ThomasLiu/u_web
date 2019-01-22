@@ -42,7 +42,7 @@ class SelectWithHiddenSelectedOptions extends Component {
 
   render() {
     const { selectedItems, initDone, list } = this.state;
-    const { placeholder, style, intl } = this.props;
+    const { placeholder, style, intl, ...reProps } = this.props;
 
     const selectedVlaueItems = selectedItems.map(item => item.key)
     const filteredOptions = list.filter(o => !selectedVlaueItems.includes(o.value));
@@ -55,7 +55,9 @@ class SelectWithHiddenSelectedOptions extends Component {
         placeholder={placeholder}
         value={selectedItems}
         onChange={this.handleChange}
+        filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0 }
         style={style || { width: '100%' }}
+        {...reProps}
       >
         {filteredOptions.map(item => (
           <Select.Option key={item} value={item.value}>
