@@ -20,17 +20,18 @@ class Support extends Component {
   }
 
   componentDidMount() {
-    const { typeName, getSupports } = this.props;
+    const { typeName, getSupports, form, value, name } = this.props;
     getSupports({ typeName }).then(res => {
       const { data } = res;
       const { list } = data;
       this.setState({ initDone: true, list });
+      form.setFieldsValue({[name]: value});
     });
   }
 
   render() {
     const { initDone, list } = this.state;
-    const { form, name, style, disabled, value, notFieldDecorator, icon, className, required, fieldDecoratorObj = {}, ...ohterProps } = this.props;
+    const { form, name, style, disabled, value, notFieldDecorator, icon, className, fieldDecoratorObj = {}, ...ohterProps } = this.props;
     const { getFieldDecorator } = form;
     let maxLength = 0
     const optionList = list.map(item => {
@@ -54,15 +55,6 @@ class Support extends Component {
 
     if (!notFieldDecorator) {
       fieldDecoratorObj.initialValue = value || ''
-      if (required) {
-        if (!fieldDecoratorObj.rules) {
-          fieldDecoratorObj.rules = []
-        }
-        fieldDecoratorObj.rules.push({
-          required: true,
-          message: getIntl(intl, 'base.required', 'Required')
-        })
-      }
     }
     
     return (

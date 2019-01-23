@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
-import Support from '@/components/Support'
+import Support from '@/components/Support';
+import SupportOption from '@/components/SupportOption';
 import { getSupports } from '@/services/agent';
-import { Form, Button, Icon } from 'antd'
+import { Form, Button, Icon, Select } from 'antd'
 
 
 
@@ -14,7 +15,6 @@ class TestPage extends Component {
   check = () => {
     const { form } = this.props;
     
-
     form.validateFields((err, values) => {
       if (!err) {
         const { test1, test2, test3 } = values
@@ -24,7 +24,6 @@ class TestPage extends Component {
         this.setState({ test1, test2, test3 })
       }
     });
-
     
   }
 
@@ -35,18 +34,31 @@ class TestPage extends Component {
     const { getFieldDecorator } = form
     return (
       <Form>
-        <Form.Item>
+       
+        <Form.Item
+          label='test1'
+        >
           <Support 
             getSupports={getSupports}
             name='test1'
-            value={57}
             placeholder='plz select one'
             form={form}
+            value={57}
+            required
           />
         </Form.Item>
-        <Form.Item>
+        <Form.Item
+        >
           {
-            getFieldDecorator('test2', { initialValue: { key: 57 }})(
+            getFieldDecorator('test2', { 
+              initialValue: { key: 57 },
+              rules: [
+                {
+                  required: true,
+                  message: 'Required'
+                }
+              ]
+            })(
               <Support 
                 getSupports={getSupports}
                 name='test2'

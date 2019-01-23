@@ -51,6 +51,7 @@ const keyArr = [
     label: getIntl(intl, 'Test support'),
     field: 'support',
     type: 'support',
+    required: true,
     getSupports,
     typeName: 'role',
     placeholder: getIntl(intl, 'plz select one'),

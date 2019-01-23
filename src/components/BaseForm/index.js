@@ -36,8 +36,9 @@ class BaseForm extends Component {
               key={field} 
               form={form}
               name={field}
-              style={{ width: '100%' }}
               value={record[field]}
+              style={{ width: '100%' }}
+              notFieldDecorator={true}
               {...reProps}
             />
           )
@@ -153,11 +154,7 @@ class BaseForm extends Component {
         help={help}
       >
         { 
-          (type && type.toLowerCase() === 'support') ? (
-            this.getInput(item)
-          ) : (
-            getFieldDecorator(field, fieldDecorator)(this.getInput(item))
-          )
+          getFieldDecorator(field, fieldDecorator)(this.getInput(item))
         }
         { (type && type.toLowerCase() === 'switch') ? afterLabel : null }
       </FormItem>
