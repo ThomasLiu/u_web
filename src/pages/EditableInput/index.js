@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import EditableInput from '@/components/EditableInput';
 import EditableSelect from '@/components/EditableSelect';
+import EditableTextArea from '@/components/EditableTextArea'
 import { getSupports } from '@/services/agent';
 import { Form, Button, Icon, Select } from 'antd'
 
@@ -68,6 +69,11 @@ class TestPage extends Component {
           ]}
           showSearch
           mode='tags'
+        />
+
+        <EditableTextArea
+          value={data.info}
+          handleSave={v => this.saveHandler(v, 'info')}
         />
 
       </div>

@@ -2,60 +2,71 @@ import React, { Component } from 'react';
 import { Input, Tooltip } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
+import _ from 'lodash';
 import styles from './index.less';
 
+const { TextArea } = Input
+
 const { getIntl } = string
-class EditableInput extends Component {
+class EditableTextArea extends Component {
   state = {
     inputVisible: false,
     inputValue: '',
   };
 
-  showInput = () => {
+  showTextArea = () => {
     const { value } = this.props;
     this.setState({ inputVisible: true, inputValue: value || '' }, () => this.input.focus());
   };
 
-  handleInputChange = e => {
+  handleTextAreaChange = e => {
     this.setState({ inputValue: e.target.value });
   };
 
-  handleInputConfirm = () => {
+  handleTextAreaConfirm = e => {
     const { inputValue } = this.state;
     const { handleSave } = this.props;
-    if (handleSave) {
-      handleSave(inputValue);
+    if (e.shiftKey && e.keyCode === 13) {
+      return
+    } 
+    if(e.keyCode === 13){
+      const value = _.trim(inputValue)
+      if (value) {
+        if (handleSave) {
+          handleSave(inputValue);
+        }
+        this.setState({
+          inputVisible: false,
+          inputValue: '',
+        });
+      }
+      e.preventDefault()
     }
-    this.setState({
-      inputVisible: false,
-      inputValue: '',
-    });
   };
 
   render() {
     const { inputVisible, inputValue } = this.state;
-    const { value, size, width, ...ohterProps } = this.props;
+    const { value, size, ...ohterProps } = this.props;
     const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       <div>
         {
           inputVisible ? (
-          <Input
+          <TextArea
             ref={node => {
               this.input = node;
             }}
             type="text"
             size={size || 'small'}
-            style={{ width: width || 78 }}
             value={inputValue}
-            onChange={this.handleInputChange}
-            onBlur={this.handleInputConfirm}
-            onPressEnter={this.handleInputConfirm}
+            onChange={this.handleTextAreaChange}
+            onBlur={this.handleTextAreaConfirm}
+            onKeyDown={this.handleTextAreaConfirm}
             {...ohterProps}
           />
           ) : (
             <Tooltip placement="bottom" title={text}>
-              <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
+              <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
                 {value || <span className={styles.tips}>{text}</span>}
               </span>
             </Tooltip>
@@ -66,4 +77,4 @@ class EditableInput extends Component {
   }
 }
 
-export default EditableInput;
+export default EditableTextArea;
