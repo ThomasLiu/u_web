@@ -46,8 +46,8 @@ class EditableTextArea extends Component {
 
   render() {
     const { inputVisible, inputValue } = this.state;
-    const { value, size, ...ohterProps } = this.props;
-    const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
+    const { value, size, tips, ...ohterProps } = this.props;
+    const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       inputVisible ? (
       <TextArea

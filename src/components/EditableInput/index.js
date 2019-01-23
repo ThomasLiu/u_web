@@ -34,8 +34,8 @@ class EditableInput extends Component {
 
   render() {
     const { inputVisible, inputValue } = this.state;
-    const { value, size, width, ...ohterProps } = this.props;
-    const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
+    const { value, size, width, tips, ...ohterProps } = this.props;
+    const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       inputVisible ? (
       <Input
