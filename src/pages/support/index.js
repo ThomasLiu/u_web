@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react';
 import Support from '@/components/Support';
-import SupportOption from '@/components/SupportOption';
 import { getSupports } from '@/services/agent';
 import { Form, Button, Icon, Select } from 'antd'
 

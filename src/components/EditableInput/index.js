@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, Tooltip } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
+import styles from './index.less';
 
 const { getIntl } = string
 class EditableInput extends Component {
@@ -34,10 +35,11 @@ class EditableInput extends Component {
   render() {
     const { inputVisible, inputValue } = this.state;
     const { value, size, width } = this.props;
-    const test = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
+    const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       <div>
-        {inputVisible && (
+        {
+          inputVisible ? (
           <Input
             ref={node => {
               this.input = node;
@@ -50,14 +52,14 @@ class EditableInput extends Component {
             onBlur={this.handleInputConfirm}
             onPressEnter={this.handleInputConfirm}
           />
-        )}
-        {!inputVisible && (
-          <Tooltip placement="bottom" title={test}>
-            <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-              {value || test}
-            </span>
-          </Tooltip>
-        )}
+          ) : (
+            <Tooltip placement="bottom" title={text}>
+              <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
+                {value || <span className={styles.tips}>{text}</span>}
+              </span>
+            </Tooltip>
+          )
+        }
       </div>
     );
   }
