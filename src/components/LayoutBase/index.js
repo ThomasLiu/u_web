@@ -67,6 +67,13 @@ class BasicLayout extends PureComponent {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    //当路由切换时
+    if(this.props.location !== nextProps.location){
+        window.scrollTo(0,0)
+    }
+  }
+
   loginSystemInit() {
     const {
       location: { query, pathname },
