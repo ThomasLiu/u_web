@@ -92,36 +92,30 @@ class EditableSelect extends Component {
       )
     })
 
-    console.log('render', value)
-
     return (
-      <div>
-        {
-          inputVisible ? (
-            <Select 
-              ref={node => {
-                this.select = node;
-              }}
-              size={size || 'small'}
-              style={{ width: width || 78 }}
-              defaultValue={value}
-              onChange={this.handleInputChange}
-              onBlur={this.handleInputConfirm}
-              onPressEnter={this.handleInputConfirm}
-              defaultOpen
-              {...ohterProps}  
-            >
-              {optionList}
-            </Select> 
-          ) : (
-            <Tooltip placement="bottom" title={getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
-              <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-                {text}
-              </span>
-            </Tooltip>
-          )
-        }
-      </div>
+      inputVisible ? (
+        <Select 
+          ref={node => {
+            this.select = node;
+          }}
+          size={size || 'small'}
+          style={{ width: width || 78 }}
+          defaultValue={value}
+          onChange={this.handleInputChange}
+          onBlur={this.handleInputConfirm}
+          onPressEnter={this.handleInputConfirm}
+          defaultOpen
+          {...ohterProps}  
+        >
+          {optionList}
+        </Select> 
+      ) : (
+        <Tooltip placement="bottom" title={getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
+          <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
+            {text}
+          </span>
+        </Tooltip>
+      )
     );
   }
 }

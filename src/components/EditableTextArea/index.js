@@ -49,30 +49,26 @@ class EditableTextArea extends Component {
     const { value, size, ...ohterProps } = this.props;
     const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
-      <div>
-        {
-          inputVisible ? (
-          <TextArea
-            ref={node => {
-              this.input = node;
-            }}
-            type="text"
-            size={size || 'small'}
-            value={inputValue}
-            onChange={this.handleTextAreaChange}
-            onBlur={this.handleTextAreaConfirm}
-            onKeyDown={this.handleTextAreaConfirm}
-            {...ohterProps}
-          />
-          ) : (
-            <Tooltip placement="bottom" title={text}>
-              <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
-                {value || <span className={styles.tips}>{text}</span>}
-              </span>
-            </Tooltip>
-          )
-        }
-      </div>
+      inputVisible ? (
+      <TextArea
+        ref={node => {
+          this.input = node;
+        }}
+        type="text"
+        size={size || 'small'}
+        value={inputValue}
+        onChange={this.handleTextAreaChange}
+        onBlur={this.handleTextAreaConfirm}
+        onKeyDown={this.handleTextAreaConfirm}
+        {...ohterProps}
+      />
+      ) : (
+        <Tooltip placement="bottom" title={text}>
+          <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
+            {value || <span className={styles.tips}>{text}</span>}
+          </span>
+        </Tooltip>
+      )
     );
   }
 }

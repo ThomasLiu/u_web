@@ -37,31 +37,27 @@ class EditableInput extends Component {
     const { value, size, width, ...ohterProps } = this.props;
     const text = getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
-      <div>
-        {
-          inputVisible ? (
-          <Input
-            ref={node => {
-              this.input = node;
-            }}
-            type="text"
-            size={size || 'small'}
-            style={{ width: width || 78 }}
-            value={inputValue}
-            onChange={this.handleInputChange}
-            onBlur={this.handleInputConfirm}
-            onPressEnter={this.handleInputConfirm}
-            {...ohterProps}
-          />
-          ) : (
-            <Tooltip placement="bottom" title={text}>
-              <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-                {value || <span className={styles.tips}>{text}</span>}
-              </span>
-            </Tooltip>
-          )
-        }
-      </div>
+      inputVisible ? (
+      <Input
+        ref={node => {
+          this.input = node;
+        }}
+        type="text"
+        size={size || 'small'}
+        style={{ width: width || 78 }}
+        value={inputValue}
+        onChange={this.handleInputChange}
+        onBlur={this.handleInputConfirm}
+        onPressEnter={this.handleInputConfirm}
+        {...ohterProps}
+      />
+      ) : (
+        <Tooltip placement="bottom" title={text}>
+          <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
+            {value || <span className={styles.tips}>{text}</span>}
+          </span>
+        </Tooltip>
+      )
     );
   }
 }
