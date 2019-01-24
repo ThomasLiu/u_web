@@ -4,7 +4,10 @@ import EditableInput from '@/components/EditableInput';
 import EditableSelect from '@/components/EditableSelect';
 import EditableTextArea from '@/components/EditableTextArea'
 import { getSupports } from '@/services/agent';
-import { Form, Button, Icon, Select } from 'antd'
+import { message } from 'antd'
+
+
+const strIsInt = str => /^\+?[1-9][0-9]*$/.test(str)
 
 
 class TestPage extends Component {
@@ -13,12 +16,17 @@ class TestPage extends Component {
   }
 
   saveHandler = (value, field) => {
-    const { data } = this.state
-    data[field] = value
-    console.log('saveHandler', value)
-    this.setState({
-      data
-    })
+    if (strIsInt(value)) {
+      const { data } = this.state
+      data[field] = value
+      console.log('saveHandler', value)
+      this.setState({
+        data
+      })
+      return true
+    }
+    message.error('need int')
+    return false
   }
 
   render() {
@@ -48,7 +56,7 @@ class TestPage extends Component {
         />
 
         <EditableSelect
-          value={data.postId2}
+          value={data.postId2 || [86, 54] }
           handleSave={v => this.saveHandler(v, 'postId2')}
           getSupports={getSupports}
           size="default"

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Input, Tooltip } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
+import _ from 'lodash';
 import styles from './index.less';
 
 const { getIntl } = string
@@ -23,13 +24,21 @@ class EditableInput extends Component {
   handleInputConfirm = () => {
     const { inputValue } = this.state;
     const { handleSave } = this.props;
-    if (handleSave) {
-      handleSave(inputValue);
+    const value = _.trim(inputValue);
+      
+    if (value) { 
+      let isOk = true
+      if (handleSave) {
+        isOk = handleSave(inputValue);
+      }
+      if (isOk) {
+        this.setState({
+          inputVisible: false,
+          inputValue: '',
+        });
+      }
     }
-    this.setState({
-      inputVisible: false,
-      inputValue: '',
-    });
+    
   };
 
   render() {

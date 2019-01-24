@@ -31,14 +31,19 @@ class EditableTextArea extends Component {
     } 
     if(e.keyCode === 13){
       const value = _.trim(inputValue)
+      
       if (value) {
+        let isOk = true
         if (handleSave) {
-          handleSave(inputValue);
+          isOk = handleSave(inputValue);
         }
-        this.setState({
-          inputVisible: false,
-          inputValue: '',
-        });
+        if (isOk) {
+          this.setState({
+            inputVisible: false,
+            inputValue: '',
+          });
+        }
+        
       }
       e.preventDefault()
     }
