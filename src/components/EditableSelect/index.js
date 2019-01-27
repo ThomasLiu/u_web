@@ -54,10 +54,13 @@ class EditableSelect extends Component {
   };
 
   getText = () => {
-    const { value, tips, mode } = this.props;
-    let text = (
-      <span className={styles.tips}>{tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}</span>
-    )
+    const { value, tips, mode, canModify = true } = this.props;
+    let text = null
+    if (canModify) {
+      text = (
+        <span className={styles.tips}>{tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}</span>
+      )
+    }
     const { list } = this.state;
     
     if (list && value) {
@@ -80,14 +83,14 @@ class EditableSelect extends Component {
 
   render() {
     const { inputVisible, list } = this.state;
-    const { value, size, width, tips, placement = 'top', ...ohterProps } = this.props;
+    const { value, size, width, tips, placement = 'top', canModify = true, ...ohterProps } = this.props;
     const text = this.getText()
 
     const optionList = list.map(item => {
-      const text = getIntl(intl, item.titleKey)
+      const optionText = getIntl(intl, item.titleKey)
       return (
         <Option key={item.titleKey} value={item.value}>
-          {text}
+          {optionText}
         </Option>
       )
     })
@@ -110,11 +113,16 @@ class EditableSelect extends Component {
           {optionList}
         </Select> 
       ) : (
-        <Tooltip placement={placement} title={tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
-          <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-            {text}
-          </span>
-        </Tooltip>
+        canModify ? (
+          <Tooltip placement={placement} title={tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
+            <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
+              {text}
+            </span>
+          </Tooltip>
+        ) : (
+          <span>{text}</span>
+        )
+        
       )
     );
   }

@@ -51,7 +51,7 @@ class EditableTextArea extends Component {
 
   render() {
     const { inputVisible, inputValue } = this.state;
-    const { value, size, tips, placement = 'top', ...ohterProps } = this.props;
+    const { value, size, tips, placement = 'top', canModify = true, ...ohterProps } = this.props;
     const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       inputVisible ? (
@@ -68,11 +68,16 @@ class EditableTextArea extends Component {
         {...ohterProps}
       />
       ) : (
-        <Tooltip placement={placement} title={text}>
-          <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
-            {value || <span className={styles.tips}>{text}</span>}
-          </span>
-        </Tooltip>
+        canModify ? (
+          <Tooltip placement={placement} title={text}>
+            <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
+              {value || <span className={styles.tips}>{text}</span>}
+            </span>
+          </Tooltip>
+        ) : (
+          <span style={{ whiteSpace: 'pre-wrap' }}>{value || ''}</span>
+        )
+       
       )
     );
   }
