@@ -43,7 +43,7 @@ class EditableInput extends Component {
 
   render() {
     const { inputVisible, inputValue } = this.state;
-    const { value, size, width, tips, ...ohterProps } = this.props;
+    const { value, size, width, tips, placement = 'top', ...ohterProps } = this.props;
     const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       inputVisible ? (
@@ -61,7 +61,7 @@ class EditableInput extends Component {
         {...ohterProps}
       />
       ) : (
-        <Tooltip placement="bottom" title={text}>
+        <Tooltip placement={placement} title={text}>
           <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
             {value || <span className={styles.tips}>{text}</span>}
           </span>

@@ -80,7 +80,7 @@ class EditableSelect extends Component {
 
   render() {
     const { inputVisible, list } = this.state;
-    const { value, size, width, tips, ...ohterProps } = this.props;
+    const { value, size, width, tips, placement = 'top', ...ohterProps } = this.props;
     const text = this.getText()
 
     const optionList = list.map(item => {
@@ -110,7 +110,7 @@ class EditableSelect extends Component {
           {optionList}
         </Select> 
       ) : (
-        <Tooltip placement="bottom" title={tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
+        <Tooltip placement={placement} title={tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')}>
           <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
             {text}
           </span>

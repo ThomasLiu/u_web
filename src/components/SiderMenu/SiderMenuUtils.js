@@ -17,7 +17,7 @@ export const getFlatMenuKeys = menuData => {
   return keys;
 };
 
-export const getMenuMatches = (flatMenuKeys = [], path) =>
+export const getMenuMatches = (flatMenuKeys, path) =>
   flatMenuKeys.filter(item => {
     if (item) {
       return pathToRegexp(item).test(path);
@@ -36,5 +36,6 @@ export const getDefaultCollapsedSubMenus = props => {
   const { urlToList } = url;
   return urlToList(pathname)
     .map(item => getMenuMatches(flatMenuKeys, item)[0])
-    .filter(item => item);
+    .filter(item => item)
+    .reduce((acc, curr) => [...acc, curr], ['/']);
 };
