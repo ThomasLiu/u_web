@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import EditableInput from '@/components/EditableInput';
 import EditableSelect from '@/components/EditableSelect';
 import EditableTextArea from '@/components/EditableTextArea'
+
+import EditableDatePicker from '@/components/EditableDatePicker'
 import { getSupports } from '@/services/agent';
 import { message } from 'antd'
 
@@ -187,6 +189,64 @@ class TestPage extends Component {
           handleSave={v => this.saveHandler(v, 'info2')}
           canModify={false}
         />
+
+        <br />
+        <label>cant Modify EditableDatePicker month</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateMonth}
+          handleSave={v => this.saveHandler(v, 'dateMonth')}
+          format='MMM YYYY'
+          mode='month'
+        />
+
+        <br />
+        <label>cant Modify EditableDatePicker week</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateWeek}
+          handleSave={v => this.saveHandler(v, 'dateWeek')}
+          format='YYYY-WW'
+          mode='week'
+        />
+
+        <br />
+        <label>cant Modify EditableDatePicker time</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateTime}
+          showTime
+          handleSave={v => this.saveHandler(v, 'dateTime')}
+        />
+
+         <br />
+        <label>cant Modify EditableDatePicker day</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateDay}
+          handleSave={v => this.saveHandler(v, 'dateDay')}
+        />
+
+        <br />
+        <label>cant Modify EditableDatePicker Range</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateRange}
+          handleSave={v => this.saveHandler(v, 'dateRange')}
+          mode='range'
+        />
+
+        
+        <br />
+        <label>cant Modify EditableDatePicker Range time</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateRangeTime}
+          showTime
+          handleSave={v => this.saveHandler(v, 'dateRangeTime')}
+          mode='range'
+        />
+
 
       </div>
       
