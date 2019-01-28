@@ -4,9 +4,10 @@ import EditableInput from '@/components/EditableInput';
 import EditableSelect from '@/components/EditableSelect';
 import EditableTextArea from '@/components/EditableTextArea'
 
+import moment from 'moment';
 import EditableDatePicker from '@/components/EditableDatePicker'
 import { getSupports } from '@/services/agent';
-import { message } from 'antd'
+import { message, Button } from 'antd'
 
 
 const strIsInt = str => /^\+?[1-9][0-9]*$/.test(str)
@@ -39,6 +40,27 @@ class TestPage extends Component {
       data
     })
     return true
+  }
+
+  renderExtraFooter = (that) => {
+    console.log('renderExtraFooter', that)
+    return <Button onClick={() => this.onClick(that)}>To now</Button>
+  }
+
+  onClick = (that) => {
+    const { defaultFormat, inputvalue } = that.state
+    if (inputvalue) {
+
+      inputvalue[1] = moment()
+
+      that.setState({
+        inputvalue: inputvalue,
+      })
+
+      // that.setState({
+      //   inputVisible: false,
+      // })
+    }
   }
 
   render() {
@@ -262,11 +284,12 @@ class TestPage extends Component {
         <label>cant Modify EditableDatePicker Range month</label>
         <br />
         <EditableDatePicker 
-          value={data.dateRangeMonth}
+          value={data.dateRangeMonth || ['2018-03', 'Now']}
           format="YYYY-MM"
           handleSave={v => this.saveHandler(v, 'dateRangeMonth')}
           type='range'
           mode={['month', 'month']}
+          renderExtraFooter={this.renderExtraFooter}
         />
 
 

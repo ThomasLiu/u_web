@@ -97,8 +97,9 @@ class EditableDatePicker extends Component {
 
   blur = () => {
     const { defaultFormat, inputvalue } = this.state;
-    // console.log('blur', defaultFormat, inputvalue)
-    const { handleSave, type } = this.props;
+    console.log('blur', defaultFormat, inputvalue)
+    if(inputvalue) {
+      const { handleSave, type } = this.props;
       let isOk = true
       if (handleSave) {
         let value 
@@ -114,6 +115,7 @@ class EditableDatePicker extends Component {
           inputVisible: false,
         });
       }
+    }
   }
 
   checkMode = (checkType) => {
@@ -137,9 +139,15 @@ class EditableDatePicker extends Component {
     }
   }
 
+  renderExtraFooter = () => {
+    const { renderExtraFooter } = this.props;
+
+    return renderExtraFooter(this)
+  }
+
   render() {
-    const { inputVisible, defaultFormat, inputvalue, mode } = this.state;
-    const { value, size, tips, placement = 'top', canModify = true, type, between, showOk, ...ohterProps } = this.props;
+    const { inputVisible, defaultFormat, inputvalue } = this.state;
+    const { value, size, tips, placement = 'top', canModify = true, type, between, showOk, renderExtraFooter, ...ohterProps } = this.props;
     const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     const datePickerObj = {
       onChange: this.handleInputChange,
@@ -157,15 +165,31 @@ class EditableDatePicker extends Component {
       if (isMonth) {
         datePickerObj.onBlur = this.blur
       }
-      if (inputvalue) {
-        datePickerObj.value = inputvalue
-      }
     }
+
+    if (inputvalue) {
+      datePickerObj.value = inputvalue
+    }
+
+    if (renderExtraFooter) {
+      ohterProps.renderExtraFooter = this.renderExtraFooter
+    }
+
     // console.log('ohterProps', ohterProps)
 
     if (value) {
       if (type === 'range' && value.length === 2) {
-        datePickerObj.defaultValue = [moment(value[0], defaultFormat), moment(value[1], defaultFormat)]
+        let start = moment(value[0], defaultFormat)
+        let end = moment(value[1], defaultFormat)
+        if (!start.isValid()) {
+          start = moment()
+        }
+        if (!end.isValid()) {
+          end = moment()
+        }
+
+        datePickerObj.defaultValue = [start, end]
+
         showValue = (
           <Fragment>
             <span>{value[0]}</span>
