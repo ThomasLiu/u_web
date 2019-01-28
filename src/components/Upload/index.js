@@ -24,7 +24,7 @@ class UploadDiv extends PureComponent {
 
     const { maxSize = defaultSize, fileType = defaultFileType } = this.props;
 
-    const reg = new RegExp(`(${fileType.toLowerCase()})`);
+    const reg = new RegExp(`${fileType.toLowerCase()}`);
     
     const isPass = reg.test(file.name.toLowerCase())
     if (!isPass) {
@@ -88,13 +88,14 @@ class UploadDiv extends PureComponent {
   render() {
     const { fileList } = this.state;
     const { maxSize = defaultSize, fileType = defaultFileType } = this.props;
+    const fileTypeText = fileType.split('|').join(', ')
     const { extra = (
       <Fragment>
         <p className="ant-upload-drag-icon">
           <Icon type="inbox" />
         </p>
         <p className="ant-upload-text">{getIntl(intl, 'base.upload.tips1', 'Click or drag file to this area to upload')}</p>
-        <p className="ant-upload-hint">{getIntl(intl, 'base.upload.tips2', `You can upload ${fileType} • ${maxSize}MB file limit .`, {maxSize, fileType})}</p>
+        <p className="ant-upload-hint">{getIntl(intl, 'base.upload.tips2', `You can upload ${fileTypeText} • ${maxSize}MB file limit .`, {maxSize, fileType: fileTypeText})}</p>
       </Fragment>
     ) } = this.props;
     const props = {
