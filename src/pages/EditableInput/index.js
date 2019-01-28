@@ -78,7 +78,7 @@ class TestPage extends Component {
           size="default"
           width='100%'
           showSearch
-          mode='multiple'
+          type='multiple'
         />
 
         <br />
@@ -92,7 +92,7 @@ class TestPage extends Component {
           width='100%'
           canModify={false}
           showSearch
-          mode='multiple'
+          type='multiple'
         />
 
         <br />
@@ -106,7 +106,7 @@ class TestPage extends Component {
           width='100%'
           canModify={false}
           showSearch
-          mode='multiple'
+          type='multiple'
         />
 
 
@@ -124,7 +124,7 @@ class TestPage extends Component {
             { value: 'thomas3@qq.com', titleKey: 'thomas3@qq.com' },
           ]}
           showSearch
-          mode='tags'
+          type='tags'
         />
 
         <br />
@@ -141,7 +141,7 @@ class TestPage extends Component {
             { value: 'thomas3@qq.com', titleKey: 'thomas3@qq.com' },
           ]}
           showSearch
-          mode='tags'
+          type='tags'
           canModify={false}
         />
 
@@ -159,7 +159,7 @@ class TestPage extends Component {
             { value: 'thomas3@qq.com', titleKey: 'thomas3@qq.com' },
           ]}
           showSearch
-          mode='tags'
+          type='tags'
           canModify={false}
         />
 
@@ -197,7 +197,7 @@ class TestPage extends Component {
           value={data.dateMonth}
           handleSave={v => this.saveHandler(v, 'dateMonth')}
           format='MMM YYYY'
-          mode='month'
+          type='month'
         />
 
         <br />
@@ -207,7 +207,7 @@ class TestPage extends Component {
           value={data.dateWeek}
           handleSave={v => this.saveHandler(v, 'dateWeek')}
           format='YYYY-WW'
-          mode='week'
+          type='week'
         />
 
         <br />
@@ -217,6 +217,17 @@ class TestPage extends Component {
           value={data.dateTime}
           showTime
           handleSave={v => this.saveHandler(v, 'dateTime')}
+        />
+
+        <br />
+        <label>cant Modify EditableDatePicker just time</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateJustTime}
+          showTime
+          format="HH:mm"
+          handleSave={v => this.saveHandler(v, 'dateJustTime')}
+          mode='time'
         />
 
          <br />
@@ -233,7 +244,7 @@ class TestPage extends Component {
         <EditableDatePicker 
           value={data.dateRange}
           handleSave={v => this.saveHandler(v, 'dateRange')}
-          mode='range'
+          type='range'
         />
 
         
@@ -244,7 +255,18 @@ class TestPage extends Component {
           value={data.dateRangeTime}
           showTime
           handleSave={v => this.saveHandler(v, 'dateRangeTime')}
-          mode='range'
+          type='range'
+        />
+
+        <br />
+        <label>cant Modify EditableDatePicker Range month</label>
+        <br />
+        <EditableDatePicker 
+          value={data.dateRangeMonth}
+          format="YYYY-MM"
+          handleSave={v => this.saveHandler(v, 'dateRangeMonth')}
+          type='range'
+          mode={['month', 'month']}
         />
 
 

@@ -19,12 +19,13 @@ class EditableDatePicker extends Component {
     if (props.showTime) {
       defaultFormat = 'YYYY-MM-DD HH:mm:ss'
     }
-    const {format = defaultFormat} = props;
+    const {format = defaultFormat, mode} = props;
 
     this.state = {
       inputVisible: false,
       inputValue: '',
-      defaultFormat: format
+      defaultFormat: format,
+      mode: mode
     };
   }
 
@@ -34,6 +35,7 @@ class EditableDatePicker extends Component {
   };
 
   handleInputChange = (date, dateString) => {
+    // console.log('handleInputChange', date, dateString)
     if (!this.props.showTime) { 
       if (dateString) { 
         const { handleSave } = this.props;
@@ -51,13 +53,14 @@ class EditableDatePicker extends Component {
   };
 
   handleOk = date => {
+    // console.log('handleOk', date)
     const { defaultFormat } = this.state;
     if (date) { 
-      const { handleSave, mode } = this.props;
+      const { handleSave, type } = this.props;
       let isOk = true
       if (handleSave) {
         let value 
-        if (mode === 'range') {
+        if (type === 'range') {
           value = [moment(date[0]).format(defaultFormat), moment(date[1]).format(defaultFormat)]
         } else {
           value = moment(date).format(defaultFormat)
@@ -72,9 +75,71 @@ class EditableDatePicker extends Component {
     }
   };
 
+  handlePanelChange = (value, mode) => {
+    // console.log('handlePanelChange', value, mode)
+    const { type } = this.props;
+    const setObj = {}
+    const isMonth = this.checkMode('month')
+    if (isMonth) {
+      setObj.inputvalue = value
+    }
+    if (type === 'range') {
+      setObj.mode = [
+        mode[0] === 'date' ? 'month' : mode[0],
+        mode[1] === 'date' ? 'month' : mode[1],
+      ]
+    } else {
+      setObj.mode = mode
+    }
+
+    this.setState(setObj);
+  }
+
+  blur = () => {
+    const { defaultFormat, inputvalue } = this.state;
+    // console.log('blur', defaultFormat, inputvalue)
+    const { handleSave, type } = this.props;
+      let isOk = true
+      if (handleSave) {
+        let value 
+        if (type === 'range') {
+          value = [moment(inputvalue[0]).format(defaultFormat), moment(inputvalue[1]).format(defaultFormat)]
+        } else {
+          value = moment(inputvalue).format(defaultFormat)
+        }
+        isOk = handleSave(value);
+      }
+      if (isOk) {
+        this.setState({
+          inputVisible: false,
+        });
+      }
+  }
+
+  checkMode = (checkType) => {
+    const { mode } = this.props;
+    const type = typeof mode
+    let isMonth = false
+    if (type === 'object') {
+      isMonth = mode.length === 2
+      && mode[0] === checkType
+      && mode[1] === checkType
+    }
+    if (type === 'string') {
+      isMonth = mode === checkType
+    }
+    return isMonth
+  }
+
+  handleOpenChange = (open) => {
+    if (open) {
+      this.setState({ mode: 'time' });
+    }
+  }
+
   render() {
-    const { inputVisible, defaultFormat } = this.state;
-    const { value, size, tips, placement = 'top', canModify = true, mode, between, ...ohterProps } = this.props;
+    const { inputVisible, defaultFormat, inputvalue, mode } = this.state;
+    const { value, size, tips, placement = 'top', canModify = true, type, between, showOk, ...ohterProps } = this.props;
     const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     const datePickerObj = {
       onChange: this.handleInputChange,
@@ -83,11 +148,23 @@ class EditableDatePicker extends Component {
       size: size || 'small',
     }
     let showValue = value
-    if (ohterProps.showTime) {
-      ohterProps.onOk = this.handleOk
+    if (ohterProps.showTime || showOk) {
+      datePickerObj.onOk = this.handleOk
     }
+    if (ohterProps.mode) {
+      datePickerObj.onPanelChange = this.handlePanelChange
+      const isMonth = this.checkMode('month')
+      if (isMonth) {
+        datePickerObj.onBlur = this.blur
+      }
+      if (inputvalue) {
+        datePickerObj.value = inputvalue
+      }
+    }
+    // console.log('ohterProps', ohterProps)
+
     if (value) {
-      if (mode === 'range' && value.length === 2) {
+      if (type === 'range' && value.length === 2) {
         datePickerObj.defaultValue = [moment(value[0], defaultFormat), moment(value[1], defaultFormat)]
         showValue = (
           <Fragment>
@@ -106,7 +183,7 @@ class EditableDatePicker extends Component {
       {...ohterProps}
     />)
     
-    switch (mode) {
+    switch (type) {
       case 'month':
         picker = (
           <MonthPicker 
