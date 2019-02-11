@@ -81,9 +81,9 @@ export default class GlobalHeaderRight extends PureComponent {
       menuData,
       isMobile
     } = this.props;
-
+    const insideFlatMenuKeys = getFlatMenuKeys(menuData.inside || []);
     const menu = (
-      <BaseMenu {...this.props} menuData={menuData.inside} className={styles.menu} selectedKeys={[]} onClick={onMenuClick} mode='vertical' />
+      <BaseMenu {...this.props} menuData={menuData.inside} flatMenuKeys={insideFlatMenuKeys} className={styles.menu} selectedKeys={[]} onClick={onMenuClick} mode='vertical' />
     );
     const flatMenuKeys = getFlatMenuKeys(menuData.right || []);
     const noticeData = this.getNoticeData();
