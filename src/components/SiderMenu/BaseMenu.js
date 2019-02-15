@@ -19,7 +19,7 @@ const getIcon = icon => {
   if (typeof icon === 'string' && isUrl(icon)) {
     return <img src={icon} alt="icon" className={styles.icon} />;
   }
-  if (typeof icon === 'string') {
+  if (typeof icon === 'string' && icon) {
     return <Icon type={icon} />;
   }
   return icon;

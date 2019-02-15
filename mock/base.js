@@ -4,7 +4,6 @@ export default {
     "data": {
       "left": [{
         path: '/form',
-        icon: 'form',
         name: 'menu1left',
         children: [
           {
@@ -43,45 +42,7 @@ export default {
       // list
       {
         path: '/list',
-        icon: 'table',
         name: 'list',
-        children: [
-          {
-            path: '/list/table-list',
-            name: 'searchtable',
-            authority: [0],
-          },
-          {
-            path: '/list/basic-list',
-            name: 'basiclist',
-          },
-          {
-            path: '/list/card-list',
-            name: 'cardlist',
-          },
-          {
-            path: '/list/search',
-            name: 'searchlist',
-            children: [
-              {
-                path: '/list/search',
-                redirect: '/list/search/articles',
-              },
-              {
-                path: '/list/search/articles',
-                name: 'articles',
-              },
-              {
-                path: '/list/search/projects',
-                name: 'projects',
-              },
-              {
-                path: '/list/search/applications',
-                name: 'applications',
-              },
-            ],
-          },
-        ],
       },],
       "inside": [{
         path: '/list/table-list',
