@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
+import Favicon from 'react-favicon';
 
 import { Layout } from 'antd';
 import DocumentMete from 'react-document-meta';
@@ -195,7 +196,7 @@ class BasicLayout extends PureComponent {
   
   render() {
     const {
-      system: { logoUrl, miniLogoUrl, recordCode, copyrightKey },
+      system: { logoUrl, miniLogoUrl, recordCode, copyrightKey, faviconUrl },
       navTheme,
       children,
       location: { pathname },
@@ -268,6 +269,7 @@ class BasicLayout extends PureComponent {
           <ContainerQuery query={screenQuery}>
             {params => (
               <Context.Provider value={this.getContext()}>
+                <Favicon url={ faviconUrl || "http://image.hiredchina.com/favicon.png" } />
                 <div className={classNames(params)}>{layout}</div>
               </Context.Provider>
             )}

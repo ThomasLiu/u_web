@@ -11,10 +11,6 @@ const SiderMenuWrapper = React.memo(props => {
       visible={!collapsed}
       placement="left"
       onClose={() => onCollapse(true)}
-      style={{
-        padding: 0,
-        height: '100vh',
-      }}
     >
       <SiderMenu {...props} flatMenuKeys={flatMenuKeys} collapsed={isMobile ? false : collapsed} />
     </Drawer>
