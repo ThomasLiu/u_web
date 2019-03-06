@@ -101,7 +101,7 @@ class UploadDiv extends PureComponent {
     const props = {
       name: 'file',
       multiple: true,
-      action: 'http://upload-z2.qiniup.com',
+      action: 'https://upload-z2.qiniup.com',
       beforeUpload: this.beforeUpload,
       onChange: this.onChange
     };

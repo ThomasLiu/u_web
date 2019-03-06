@@ -157,7 +157,7 @@ export default class GlobalHeaderRight extends PureComponent {
                 <Avatar
                   size="small"
                   className={styles.avatar}
-                  src={currentUser.headimgurl || 'http://image.hiredchina.com/face_ex.jpg'}
+                  src={currentUser.headimgurl || 'https://image.hiredchina.com/face_ex.jpg'}
                   alt="avatar"
                 />
                 <span className={styles.name}>{currentUser.nickname}</span>

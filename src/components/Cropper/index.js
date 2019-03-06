@@ -54,7 +54,7 @@ class CropperWidget extends PureComponent {
       const { uid } = fileList[0];
 
       this.reqs[uid] = request({
-        action: action || 'http://upload-z2.qiniup.com',
+        action: action || 'https://upload-z2.qiniup.com',
         filename: name || 'file',
         file: lrzImg,
         data,

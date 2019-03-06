@@ -12,11 +12,11 @@ export default {
   'POST /api/v1/invite/member': {
     "data": {
       user: {
-        headimgurl: 'http://image.hiredchina.com/Fm_MRxEJSyL0dZZzl0VRmbWAAyMq',
+        headimgurl: 'https://image.hiredchina.com/Fm_MRxEJSyL0dZZzl0VRmbWAAyMq',
         nickname: 'Thomas Lau'
       },
       person: {
-        headimgurl: 'http://image.hiredchina.com/FnuiynqbmEIXjKK_Jnl7s6wCx2Xb',
+        headimgurl: 'https://image.hiredchina.com/FnuiynqbmEIXjKK_Jnl7s6wCx2Xb',
         firstName: 'First',
         lastName: 'Last',
       }
@@ -25,12 +25,12 @@ export default {
   'POST /api/v1/invite/company': {
     "data": {
       user: {
-        headimgurl: 'http://image.hiredchina.com/Fm_MRxEJSyL0dZZzl0VRmbWAAyMq',
+        headimgurl: 'https://image.hiredchina.com/Fm_MRxEJSyL0dZZzl0VRmbWAAyMq',
         nickname: 'Thomas Lau'
       },
       company: {
         line: '__1543308672676',
-        logoimgurl: 'http://image.hiredchina.com/FqnCWqsS3ZvQFFUrDk_aQpS5tzP7?imageView2/2/w/150',
+        logoimgurl: 'https://image.hiredchina.com/FqnCWqsS3ZvQFFUrDk_aQpS5tzP7?imageView2/2/w/150',
         name: 'QIANKANG Clinic',
       }
     }
@@ -39,7 +39,7 @@ export default {
   'GET /api/v1/setting/wechat': {
     "data": {
       nickname: 'Thomas Lau',
-      headimgurl: 'http://image.hiredchina.com/FqnCWqsS3ZvQFFUrDk_aQpS5tzP7?imageView2/2/w/150',
+      headimgurl: 'https://image.hiredchina.com/FqnCWqsS3ZvQFFUrDk_aQpS5tzP7?imageView2/2/w/150',
     }
   },
 
@@ -53,7 +53,7 @@ export default {
     "code": 0,
     "data": {
       "token": "9DHqu08vPggvQkuwG49k8kneA9dGSN_SSQwgwOYD:PnfHoeGf53RKkWavvAYeh7Q79nE=:eyJzY29wZSI6ImhpcmVkY2hpbmEiLCJkZWFkbGluZSI6MTU0NDY5MzQzM30=",
-      "origin": "http://image.hiredchina.com"
+      "origin": "https://image.hiredchina.com"
     },
     "msg": "请求成功"
   },

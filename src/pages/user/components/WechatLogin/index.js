@@ -84,7 +84,7 @@ class WechatLogin extends PureComponent {
       <div>
         <div id="wechatLogin" className={style.wechatLogin} />
         <Script
-          url="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"
+          url="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"
           onLoad={this.handleScriptLoad}
         />
       </div>

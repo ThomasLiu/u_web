@@ -235,7 +235,10 @@ export default {
       "Clear": "Clear",
       "Save": "Save",
       "en-US": "EN",
-      "zh-CN": "中文"
+      "zh-CN": "中文",
+      "keywork.login": 'keywork login',
+      "description.login": 'description login',
+      "this.is.login": "this is login",
     },
     "msg": "Request success"
   },
@@ -316,7 +319,10 @@ export default {
       "Clear": "清空",
       "Save": "保存",
       "en-US": "EN",
-      "zh-CN": "中文"
+      "zh-CN": "中文",
+      "keywork.login": '关键词 login',
+      "description.login": '描述 login',
+      "this.is.login": "这是登录",
     },
     "msg": "请求成功"
   },
@@ -338,7 +344,7 @@ export default {
       "lastAt": "2018-11-16T02:32:59.000Z",
       "isLock": false,
       "lastLanguage": "zh",
-      "headimgurl": "http://image.hiredchina.com/FpxXVRh34w3zIfxyMG-app_bLRpd",
+      "headimgurl": "https://image.hiredchina.com/FpxXVRh34w3zIfxyMG-app_bLRpd",
       "genderType": 0,
       "createdAt": "2018-11-16T02:32:59.000Z",
       "updatedAt": "2018-12-13T03:40:37.000Z",
@@ -351,11 +357,11 @@ export default {
     "code": 0,
     "data": {
       "nameKey": "loginapi",
-      "titleKey": "login",
-      "keyworkKey": "login",
-      "descriptionKey": "login",
-      "logoUrl": "http://image.hiredchina.com/logo.jpg",
-      "miniLogoUrl": "http://image.hiredchina.com/FpxXVRh34w3zIfxyMG-app_bLRpd",
+      "titleKey": "this.is.login",
+      "keyworkKey": "keywork.login",
+      "descriptionKey": "description.login",
+      "logoUrl": "https://image.hiredchina.com/logo.jpg",
+      "miniLogoUrl": "https://image.hiredchina.com/FpxXVRh34w3zIfxyMG-app_bLRpd",
       "copyrightKey": "",
       "recordCode": ""
     }

@@ -269,7 +269,7 @@ class BasicLayout extends PureComponent {
           <ContainerQuery query={screenQuery}>
             {params => (
               <Context.Provider value={this.getContext()}>
-                <Favicon url={ faviconUrl || "http://image.hiredchina.com/favicon.png" } />
+                <Favicon url={ faviconUrl || "https://image.hiredchina.com/favicon.png" } />
                 <div className={classNames(params)}>{layout}</div>
               </Context.Provider>
             )}

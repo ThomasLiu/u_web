@@ -129,7 +129,7 @@ class MemberPage extends Component {
             getWechatJsConfig={getWechatJsConfig}
             title={getIntl(intl, 'loginsys.hiredchina.com.invite', 'HiredChina.com Invite')}
             desc={getIntl(intl, 'loginsys.member.invite.share.desc', `${nickname} invites ${firstName} ${lastName} to use HiredChina.com`, { nickname, firstName, lastName })}
-            imgUrl="http://image.hiredchina.com/hc_logo_300x300.jpg"
+            imgUrl="https://image.hiredchina.com/hc_logo_300x300.jpg"
           />
         ) : (
           <div />

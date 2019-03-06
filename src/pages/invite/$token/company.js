@@ -155,7 +155,7 @@ class CompanyPage extends Component {
               getWechatJsConfig={getWechatJsConfig}
               title={getIntl(intl, 'loginsys.hiredchina.com.invite', 'HiredChina.com Invite')}
               desc={getIntl(intl, 'loginsys.company.invite.share.desc', `${nickname} invites you to manage ${name} info in HiredChina.com`, { nickname, name })}
-              imgUrl="http://image.hiredchina.com/hc_logo_300x300.jpg"
+              imgUrl="https://image.hiredchina.com/hc_logo_300x300.jpg"
             />
           ) : (
             <div />

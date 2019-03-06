@@ -62,7 +62,7 @@ class ShareAppMessage extends Component {
 
   render() {
     return (
-      <Script url="http://res.wx.qq.com/open/js/jweixin-1.2.0.js" onLoad={this.handleScriptLoad} />
+      <Script url="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" onLoad={this.handleScriptLoad} />
     );
   }
 }
