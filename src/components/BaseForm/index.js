@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Switch, Select } from 'antd';
+import { Form, Input, Switch, Select, Upload, Icon, Button, message } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
 import SelectHiddenOptions from '../SelectHiddenOptions';
@@ -12,8 +12,25 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { TextArea } = Input;
 
+
+function beforeUpload(file) {
+  const isJPG = file.type === 'image/jpeg';
+  if (!isJPG) {
+    message.error('You can only upload JPG file!');
+  }
+  const isLt2M = file.size / 1024 / 1024 < 2;
+  if (!isLt2M) {
+    message.error('Image must smaller than 2MB!');
+  }
+  return isJPG && isLt2M;
+}
+
 class BaseForm extends Component {
   
+  state = { 
+    fileList: [] 
+  }
+
   onSubmit = (e) => {
     e.preventDefault();
     const { onSubmit, form } = this.props;
@@ -24,12 +41,36 @@ class BaseForm extends Component {
     });
   }
 
+  handleUploadChange = (info, field) => {
+    const { status, response } = info.file;
+    const { form, origin } = this.props;
+
+    let { fileList }  = info;
+    if (fileList.length > 1) {
+      fileList = [ info.file ]
+    }
+
+    if (status === 'done') {
+      if (response && response.key) {
+        const url = `${origin}/${response.key}`
+        form.setFieldsValue({[field]: url});
+      }
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+    this.setState({ fileList });
+  }
 
   getInput = item => {
     const { type, option, field, rows, ...reProps} = item;
     const { origin, form, record = {} } = this.props;
     if (type) {
       switch (type.toLowerCase()) {
+        case 'upload':
+          return (
+            <Input style={{ display: 'none'}} />
+          )
         case 'support': 
           return (
             <Support 
@@ -105,6 +146,27 @@ class BaseForm extends Component {
     return (<Input />)
   }
 
+  getUpload = item => {
+    const { type, option, field, rows, ...reProps} = item;
+    return (
+      <Upload
+        name='file'
+        action="https://upload-z2.qiniup.com"
+        beforeUpload={beforeUpload}
+        onChange={ (info) => this.handleUploadChange(info, field)}
+        fileList={this.state.fileList}
+        {...reProps}
+        {...this.props}
+      >
+        { reProps.children || (
+        <Button>
+          <Icon type="upload" /> Click to Upload
+        </Button>
+        ) }
+      </Upload>
+    )
+  }
+
   getFormItem = (item, formItemLayout ) => {
     const { form, record = {}, layout: formLayout } = this.props
     const { getFieldDecorator } = form;
@@ -156,6 +218,7 @@ class BaseForm extends Component {
         { 
           getFieldDecorator(field, fieldDecorator)(this.getInput(item))
         }
+        { (type && type.toLowerCase() === 'upload') ? this.getUpload(item) : null }
         { (type && type.toLowerCase() === 'switch') ? afterLabel : null }
       </FormItem>
     )

@@ -75,22 +75,62 @@ const keyArr = [
     label: getIntl(intl, 'Img'),
     field: 'img',
     type: 'img',
-    uploadToken,
     aspectRatio: 1/1,
     avatarClassName: styles.imgUploader,
+  },
+  {
+    label: getIntl(intl, 'Upload'),
+    field: 'uploadUrl',
+    type: 'upload',
+    beforeUpload: (file) => {
+      console.log(file.type)
+      const isJPG = file.type === 'image/jpeg';
+      if (!isJPG) {
+        message.error('You can only upload JPG file!');
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        message.error('Image must smaller than 2MB!');
+      }
+      return isJPG && isLt2M;
+    }
   }
 ]
 
 class TestPage extends Component {
+  state = {
+    initDone: false
+  }
+
+  componentDidMount() {
+    uploadToken().then(res => {
+      const {
+        data: { token, errSms, origin },
+      } = res;
+      if (errSms) {
+        message.error(getIntl(intl, errSms));
+      } else {
+        this.setState({
+          initDone: true,
+          token,
+          origin,
+        });
+      }
+    });
+  }
   onSubmit = (values) => {
     console.log('onSubmit values', values)
   }
   render() {
+    const { token, origin, initDone } = this.state;
     return (
+      initDone &&
       <BaseForm
         record={{support: 57, authorityIds: [{ key: 242}, { key: 86}]}}
         onSubmit={this.onSubmit} 
         keyArr={keyArr}
+        data={{ token }}
+        origin={origin}
       >
         <Button type="primary" htmlType="submit">{getIntl(intl, 'base.create', 'Create')}</Button>
       </BaseForm>

@@ -156,14 +156,14 @@ class BasicLayout extends PureComponent {
 
   getSystemTitle = () => {
     const { system: { titleKey } } = this.props;
-    return getIntl(intl, titleKey, 'Hired, China, Job')
+    return getIntl(intl, titleKey, 'HiredChina.com【在华外国人才网】')
   }
 
   getMeta = (pathname, breadcrumbNameMap) => {
     const title = this.getPageTitle(pathname, breadcrumbNameMap);
     const { system: { keyworkKey, descriptionKey } } = this.props;
-    const keywords = getIntl(intl, keyworkKey, 'Hired, China, Job')
-    const description = getIntl(intl, descriptionKey, 'Hired, China, Job')
+    const keywords = getIntl(intl, keyworkKey, 'best job in China,在华外国人才网,China expat job,招聘外国人,job in china,外国人网,non-teaching job in China,外国人才,job search website,外籍销售,job search website,找外教,job search website,外籍演员,job search website,国际人才网,job search website,外籍人士,job search website,外国人猎头,work visa,外国人招聘,ESL teacher,外国人求职,marketing specialist')
+    const description = getIntl(intl, descriptionKey, 'HiredChina.com - The platform with the best job varieties for expats in China. Choose your ideal job from 5000+ companies! -- HiredChina.com 在华外国人才网 - 最多外国人使用的求职平台，成功发布的职位将每日同步到Facebook/teitter/Linkedin，并由全国第一的英文微信大号GuideinChina推送给20W外国粉丝！Hired, China, Job')
 
     return {
       title,

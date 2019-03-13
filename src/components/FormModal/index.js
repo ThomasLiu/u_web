@@ -42,7 +42,7 @@ class FormModal extends Component {
   }
 
   render() {
-    const { children, record, keyArr, title, layout, footer } = this.props;
+    const { children, record, keyArr, title, layout, footer, ...rePorps } = this.props;
     const { visible } = this.state;
     return (
       <span className={sytles.main}>
@@ -56,7 +56,14 @@ class FormModal extends Component {
           onCancel={this.hideModelHandler}
           footer={footer}
         > 
-          <BaseForm record={record} layout={layout || 'vertical'} ref={this.handleForm} onSubmit={this.okHandler} keyArr={keyArr} />
+          <BaseForm 
+            record={record} 
+            layout={layout || 'vertical'} 
+            ref={this.handleForm} 
+            onSubmit={this.okHandler} 
+            keyArr={keyArr} 
+            {...rePorps}
+          />
         </Modal>
       </span>
     )
