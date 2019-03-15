@@ -111,14 +111,21 @@ class CropperWidget extends PureComponent {
     this.cropper.rotate(90);
   };
 
+  getDiv = (i = 0) => {
+    const divId = `cropperDiv${i}`;
+    if(document.getElementById(divId)) {
+      return this.getDiv(i + 1)
+    }
+    return divId
+  }
+
   render() {
     const { editImageModalVisible, srcCropper, loading } = this.state;
     const {
       viewMode,
       dragMode,
       aspectRatio,
-      height,
-      width,
+      
       baseSize,
       imageUrl,
       avatarClassName,
@@ -131,6 +138,8 @@ class CropperWidget extends PureComponent {
       minCanvasWidth,
       minContainerWidth,
       minContainerHeight,
+      height,
+      width,
     } =this.props;
 
     const uploadButton = (
@@ -141,9 +150,9 @@ class CropperWidget extends PureComponent {
     );
     let thisBaseSize = baseSize || 450;
     if (isMobile) {
-      minCanvasHeight = minContainerHeight = document.body.offsetHeight - 53;
-      minCanvasWidth = minContainerWidth = document.body.offsetWidth;
-      thisBaseSize = '100%'
+      minCanvasHeight = minContainerHeight = height = document.body.offsetHeight - 53;
+      minCanvasWidth = minContainerWidth = width = document.body.offsetWidth;
+
     }
     const footer = (
       <div style={{ textAlign: 'center' }}>
@@ -158,8 +167,9 @@ class CropperWidget extends PureComponent {
         </Button>
       </div>
     );
+    const divId = this.getDiv()
     return (
-      <div className={styles.main}>
+      <div className={styles.main} id={divId}>
         <Upload
           ref={node => {
             this.upload = node;
@@ -172,7 +182,7 @@ class CropperWidget extends PureComponent {
         >
           {imageUrl ? <img src={imageUrl} alt="avatar" /> : uploadButton}
         </Upload>
-        <Modal visible={editImageModalVisible} footer={footer} closable={false}>
+        <Modal getContainer={() => document.getElementById(divId)} visible={editImageModalVisible} footer={footer} closable={false}>
           <Cropper
             ref={node => {
               this.cropper = node;
