@@ -44,6 +44,7 @@ class BasicLayout extends PureComponent {
         LS={LS}
         Header={Header}
         getI18n={getI18n}
+        needDocumentMete={false}
         { ...this.props }
       />
     );

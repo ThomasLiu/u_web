@@ -213,6 +213,7 @@ class BasicLayout extends PureComponent {
       LS,
       Header,
       getI18n,
+      needDocumentMete = true
     } = this.props;
 
     const routerConfig = this.getRouterAuthority(pathname, routes);
@@ -265,16 +266,29 @@ class BasicLayout extends PureComponent {
     );
     return (
       <App getI18n={getI18n} LS={LS}>
-        <DocumentMete {...this.getMeta(pathname, breadcrumbNameMap)}>
-          <ContainerQuery query={screenQuery}>
-            {params => (
-              <Context.Provider value={this.getContext()}>
-                <Favicon url={ faviconUrl || "https://image.hiredchina.com/favicon.png" } />
-                <div className={classNames(params)}>{layout}</div>
-              </Context.Provider>
-            )}
-          </ContainerQuery>
-        </DocumentMete>
+        {
+          needDocumentMete ? (
+            <DocumentMete {...this.getMeta(pathname, breadcrumbNameMap)}>
+              <ContainerQuery query={screenQuery}>
+                {params => (
+                  <Context.Provider value={this.getContext()}>
+                    <Favicon url={ faviconUrl || "https://image.hiredchina.com/favicon.png" } />
+                    <div className={classNames(params)}>{layout}</div>
+                  </Context.Provider>
+                )}
+              </ContainerQuery>
+            </DocumentMete>
+          ) : (
+            <ContainerQuery query={screenQuery}>
+              {params => (
+                <Context.Provider value={this.getContext()}>
+                  <div className={classNames(params)}>{layout}</div>
+                </Context.Provider>
+              )}
+            </ContainerQuery>
+          )
+        }
+        
       </App>
     );
   }
