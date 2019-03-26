@@ -18,7 +18,8 @@ import intl from 'react-intl-universal';
 import pathToRegexp from 'path-to-regexp';
 import Media from 'react-media';
 
-import { string } from 'util_react_web';
+import { string, url } from 'util_react_web';
+import { stringify } from 'qs'
 import styles from './index.less';
 import Context from './MenuContext';
 
@@ -85,18 +86,16 @@ class BasicLayout extends PureComponent {
     if (query && query.utoken && query.redirect && pathname === '/Exception/403') {
       let { redirect } = query;
       const { utoken } = query;
-      if (redirect.indexOf('?') > 0) {
-        if (redirect.indexOf('utoken=') < 0) {
-          redirect = `${redirect}&utoken=${utoken}`;
-        }
-      } else {
-        redirect = `${redirect}?utoken=${utoken}`;
-      }
+      const { addQuery } = url
+
+      redirect = addQuery(redirect, 'utoken', utoken)
       window.location.href = redirect;
     }
     if (query && query.utoken) {
       LS.setItem('U_token', query.utoken);
-      dispatch(routerRedux.replace(pathname || '/'));
+      const path = pathname || '/'
+      const { utoken, ...reProps } = query
+      dispatch(routerRedux.replace(`${path}?${stringify(reProps)}`));
     }
   }
 

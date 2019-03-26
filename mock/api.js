@@ -57,19 +57,19 @@ export default {
   //   },
   //   "msg": "请求成功"
   // },
-  'POST /api/v1/setting/phone/:phone': {
-    "code": 0,
-    "data": {
-      "errSms": "the.number.is.incorr"
-    },
-    "msg": "请求成功"
-  },
-  'DELETE /api/v1/setting/wechat': {
-    "code": 0,
-    "data": {
-      "errSms": "data.not.found"
-    },
-    "msg": "请求成功"
-  },
+  // 'POST /api/v1/setting/phone/:phone': {
+  //   "code": 0,
+  //   "data": {
+  //     "errSms": "the.number.is.incorr"
+  //   },
+  //   "msg": "请求成功"
+  // },
+  // 'DELETE /api/v1/setting/wechat': {
+  //   "code": 0,
+  //   "data": {
+  //     "errSms": "data.not.found"
+  //   },
+  //   "msg": "请求成功"
+  // },
 }
 
