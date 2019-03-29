@@ -94,7 +94,7 @@ class BasicLayout extends PureComponent {
     if (query && query.utoken) {
       LS.setItem('U_token', query.utoken);
       const path = pathname || '/'
-      const { utoken, ...reProps } = query
+      const { utoken, redirect, ...reProps } = query
       dispatch(routerRedux.replace(`${path}?${stringify(reProps)}`));
     }
   }

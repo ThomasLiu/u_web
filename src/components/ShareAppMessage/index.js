@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Script from '../Script';
 
+import { url } from 'util_react_web';
 class ShareAppMessage extends Component {
   scriptLoaderCount = 0;
 
@@ -9,10 +10,15 @@ class ShareAppMessage extends Component {
     ++this.scriptLoaderCount;
     if (this.scriptLoaderCount === 1) {
       const jsApiList = ['onMenuShareAppMessage'];
-      const { title, desc, imgUrl, success, cancel, getWechatJsConfig } = this.props;
+      const { title, desc, imgUrl, success, cancel, getWechatJsConfig, refStr } = this.props;
+      let path = window.location.href
+      if (refStr) {
+        const { addQuery } = url
+        path = addQuery(url, 'ref', refStr)
+      }
       getWechatJsConfig({
         jsApiList,
-        url: window.location.href,
+        url: path,
       }).then(jsConfigRes => {
         const { data: jsConfig } = jsConfigRes;
         const { wx } = window;
@@ -35,7 +41,7 @@ class ShareAppMessage extends Component {
                     wx.onMenuShareAppMessage({
                       title, // 分享标题
                       desc, // 分享描述
-                      link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                      link: path, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                       imgUrl, // 分享图标
                       success() {
                         // 用户确认分享后执行的回调函数
