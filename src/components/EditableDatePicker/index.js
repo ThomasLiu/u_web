@@ -30,8 +30,11 @@ class EditableDatePicker extends Component {
   }
 
   showInput = () => {
-    const { value } = this.props;
+    const { value, handleShow } = this.props;
     this.setState({ inputVisible: true, inputValue: value || '' });
+    if (handleShow) {
+      handleShow(this)
+    }
   };
 
   handleInputChange = (date, dateString) => {

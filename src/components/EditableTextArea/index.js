@@ -15,8 +15,11 @@ class EditableTextArea extends Component {
   };
 
   showTextArea = () => {
-    const { value } = this.props;
+    const { value, handleShow } = this.props;
     this.setState({ inputVisible: true, inputValue: value || '' }, () => this.input.focus());
+    if (handleShow) {
+      handleShow(this)
+    }
   };
 
   handleTextAreaChange = e => {

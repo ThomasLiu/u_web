@@ -13,8 +13,11 @@ class EditableInput extends Component {
   };
 
   showInput = () => {
-    const { value } = this.props;
+    const { value, handleShow } = this.props;
     this.setState({ inputVisible: true, inputValue: value || '' }, () => this.input.focus());
+    if (handleShow) {
+      handleShow(this)
+    }
   };
 
   handleInputChange = e => {
