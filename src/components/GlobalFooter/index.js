@@ -44,7 +44,7 @@ const getLink = link => {
   return retrunValue;
 }
 
-const GlobalFooter = ({ className, links, copyright, social, patents }) => {
+const GlobalFooter = ({ className, links, copyright, social, patents, isMobile }) => {
   const clsString = classNames(styles.globalFooter, className);
   const socialTitle1 = getIntl(intl, 'base.find.us.on', 'Find us on');
   const socialTitle2 = getIntl(intl, 'base.social.media', 'social media:');
@@ -53,52 +53,34 @@ const GlobalFooter = ({ className, links, copyright, social, patents }) => {
   if (links) {
     colSpan = parseInt(24 / links.length) 
   }
+  if (isMobile) {
+    colSpan = 12
+  }
 
   return (
     <footer className={clsString}>
       {links && (
         <div className={styles.links}>
-          <div className="hide-sm">
-            <Row type="flex" justify="space-around" style={{ maxWidth: '1024px', margin: '0 auto'}}>
-            {links.map(link => (
-              <Col span={colSpan} key={`col${link.title}`}>
-                <ul>
-                  <li key={`${link.title}${link.href}`}>
-                    <h3>
-                      {getLink(link)}
-                    </h3>
-                  </li>
-                  {link.children && (
-                    link.children.map( childrenLink => (
-                      <li key={`${childrenLink.title}${childrenLink.href}`}>
-                        {getLink(childrenLink)}
-                      </li>
-                    ))
-                  )}
-                </ul>
-              </Col>
-            ))}
-            </Row>
-          </div>
-          
-          <div className='block-sm u-hide'>
-            {links.map( (link ,i ) => (
-              <Fragment key={`Fragment${link.title}`}>
-                { i > 0 && (
-                <Divider type="vertical" />
+          <Row type="flex" justify="space-around" style={{ maxWidth: '1024px', margin: '0 auto'}}>
+          {links.map(link => (
+            <Col span={colSpan} key={`col${link.title}`}>
+              <ul>
+                <li key={`${link.title}${link.href}`}>
+                  <h3>
+                    {getLink(link)}
+                  </h3>
+                </li>
+                {link.children && (
+                  link.children.map( childrenLink => (
+                    <li key={`${childrenLink.title}${childrenLink.href}`}>
+                      {getLink(childrenLink)}
+                    </li>
+                  ))
                 )}
-                <a
-                  key={link.key}
-                  title={getIntl(intl, link.title, link.title)}
-                  target={link.blankTarget ? '_blank' : '_self'}
-                  href={link.href}
-                >
-                  {getIntl(intl, link.title, link.title)}
-                </a>
-              </Fragment>
-              
-            ))}
-          </div>
+              </ul>
+            </Col>
+          ))}
+          </Row>
         </div>
       )}
       {social && (

@@ -16,6 +16,7 @@ const FooterView = (props) => (
         <a target="_blank" href='http://www.miitbeian.gov.cn/' style={{ color: 'rgba(0, 0, 0, 0.45)'}}>{props.recordCode || '粤ICP备16003809号-2'}</a>
       }
       social={props.social}
+      isMobile={props.isMobile}
     />
   </Footer>
 );

@@ -95,7 +95,9 @@ class BasicLayout extends PureComponent {
       LS.setItem('U_token', query.utoken);
       const path = pathname || '/'
       const { utoken, redirect, ...reProps } = query
-      dispatch(routerRedux.replace(`${path}?${stringify(reProps)}`));
+      
+      const thisHref = `${window.location.host}/${path}?${stringify(reProps)}`
+      window.location.href = thisHref
     }
   }
 
@@ -259,6 +261,7 @@ class BasicLayout extends PureComponent {
             recordCode={recordCode} 
             links={footerLinks}
             social={social}
+            isMobile={isMobile}
           />
         </Layout>
       </Layout>
