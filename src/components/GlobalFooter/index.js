@@ -23,7 +23,7 @@ const getLink = link => {
       <Fragment>
         <h4>{retrunValue}</h4>
         <div className={styles.img}>
-          <img src={img} title={i18nStr} />
+          <img src={`${img}?imageView2/2/w/300`} title={i18nStr} />
         </div>
       </Fragment>
     )

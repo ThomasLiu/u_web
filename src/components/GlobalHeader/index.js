@@ -36,7 +36,7 @@ export default class GlobalHeader extends PureComponent {
       <div className={styles.header}>
         {isMobile && (
           <a href={redirect || '/'} className={styles.logo} key="logo">
-            <img src={logo} alt="logo" width="32" />
+            <img src={`${logo}?imageView2/2/w/32`} alt="logo" width="32" />
           </a>
         )}
         <Icon

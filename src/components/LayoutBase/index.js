@@ -96,8 +96,10 @@ class BasicLayout extends PureComponent {
       const path = pathname || '/'
       const { utoken, redirect, ...reProps } = query
       
-      const thisHref = `${window.location.host}/${path}?${stringify(reProps)}`
-      window.location.href = thisHref
+      dispatch(routerRedux.replace({
+        pathname: path,
+        query: reProps
+      }));
     }
   }
 

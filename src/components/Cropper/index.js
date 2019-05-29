@@ -91,10 +91,12 @@ class CropperWidget extends PureComponent {
     const isJPG = imgType.toLowerCase().indexOf(file.type.toLowerCase().replace('image/', '')) >= 0;
     if (!isJPG) {
       message.error(getIntl(intl, 'base.you.can.only.upload.img.file', `You can only upload ${imgType} file!`, { type: imgType }));
+      return false;
     }
     const isLtM = file.size / 1024 / 1024 < (maxSize || 10);
     if (!isLtM) {
       message.error(getIntl(intl, 'base.image.must.smaller.than.num.mb', `Image must smaller than ${maxSize}MB!`, { num: maxSize }));
+      return false;
     }
     getBase64(file, imgUrl =>
       this.setState({
