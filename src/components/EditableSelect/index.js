@@ -80,6 +80,8 @@ class EditableSelect extends Component {
           text = getIntl(intl, thisValue[0].titleKey) 
         }
       }
+
+      text = (<span className={styles.value}>{text}</span>)
     }
     return text
   }

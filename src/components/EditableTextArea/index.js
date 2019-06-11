@@ -74,7 +74,7 @@ class EditableTextArea extends Component {
         canModify ? (
           <Tooltip placement={placement} title={text}>
             <span style={{ cursor: 'pointer', whiteSpace: 'pre-wrap' }} onClick={this.showTextArea}>
-              {value || <span className={styles.tips}>{text}</span>}
+              {value ? <span className={styles.value}>{value}</span>  : <span className={styles.tips}>{text}</span>}
             </span>
           </Tooltip>
         ) : (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input, Tooltip } from 'antd';
+import { Input, Tooltip, message } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
 import _ from 'lodash';
@@ -21,6 +21,13 @@ class EditableInput extends Component {
   };
 
   handleInputChange = e => {
+    const { maxLength = 3 } = this.props;
+    if (maxLength) {
+      if (parseInt(maxLength) < e.target.value.length ) {
+        message.error(getIntl(intl, 'base.max.text.length', `Up to ${maxLength} characters`, { num: maxLength }))
+        return 
+      }
+    } 
     this.setState({ inputValue: e.target.value });
   };
 
@@ -67,7 +74,7 @@ class EditableInput extends Component {
         canModify ? (
           <Tooltip placement={placement} title={text}>
             <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-              {value || <span className={styles.tips}>{text}</span>}
+              {value ? <span className={styles.value}>{value}</span> : <span className={styles.tips}>{text}</span>}
             </span>
           </Tooltip>
         ) : (

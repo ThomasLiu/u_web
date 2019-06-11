@@ -245,7 +245,7 @@ class EditableDatePicker extends Component {
         canModify ? (
           <Tooltip placement={placement} title={text}>
             <span style={{ cursor: 'pointer' }} onClick={this.showInput}>
-              {showValue || <span className={styles.tips}>{text}</span>}
+              {showValue ? <span className={styles.value}>{showValue}</span> : <span className={styles.tips}>{text}</span>}
             </span>
           </Tooltip>
         ) : (
