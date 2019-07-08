@@ -13,7 +13,7 @@ const FooterView = (props) => (
         </Fragment>
       }
       patents={
-        <a target="_blank" href='http://www.miitbeian.gov.cn/' style={{ color: 'rgba(0, 0, 0, 0.45)'}}>{props.recordCode || '粤ICP备16003809号-2'}</a>
+        <a target="_blank" href='http://www.beian.miit.gov.cn/' style={{ color: 'rgba(0, 0, 0, 0.45)'}}>{props.recordCode || '粤ICP备16003809号-2'}</a>
       }
       social={props.social}
       isMobile={props.isMobile}
