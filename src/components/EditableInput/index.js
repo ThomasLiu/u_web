@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Input, Tooltip, message } from 'antd';
+import React, { Component, Fragment } from 'react';
+import { Input, Tooltip } from 'antd';
 import intl from 'react-intl-universal';
 import { string } from 'util_react_web';
 import _ from 'lodash';
@@ -10,11 +10,12 @@ class EditableInput extends Component {
   state = {
     inputVisible: false,
     inputValue: '',
+    errorMsg: '',
   };
 
   showInput = () => {
     const { value, handleShow } = this.props;
-    this.setState({ inputVisible: true, inputValue: value || '' }, () => this.input.focus());
+    this.setState({ errorMsg: '', inputVisible: true, inputValue: value || '' }, () => this.input.focus());
     if (handleShow) {
       handleShow(this)
     }
@@ -24,11 +25,13 @@ class EditableInput extends Component {
     const { maxLength = 3 } = this.props;
     if (maxLength) {
       if (parseInt(maxLength) < e.target.value.length ) {
-        message.error(getIntl(intl, 'base.max.text.length', `Up to ${maxLength} characters`, { num: maxLength }))
+        this.setState({
+          errorMsg: getIntl(intl, 'base.max.text.length', `Up to ${maxLength} characters`, { num: maxLength })
+        })
         return 
       }
     } 
-    this.setState({ inputValue: e.target.value });
+    this.setState({ inputValue: e.target.value, errorMsg: '' });
   };
 
   handleInputConfirm = () => {
@@ -45,6 +48,7 @@ class EditableInput extends Component {
         this.setState({
           inputVisible: false,
           inputValue: '',
+          errorMsg: ''
         });
       }
     }
@@ -52,24 +56,29 @@ class EditableInput extends Component {
   };
 
   render() {
-    const { inputVisible, inputValue } = this.state;
+    const { inputVisible, inputValue, errorMsg } = this.state;
     const { value, size, width, tips, placement = 'top', canModify = true, ...ohterProps } = this.props;
     const text = tips || getIntl(intl, 'base.click.on.to.modify', 'Click on to modify')
     return (
       inputVisible ? (
-      <Input
-        ref={node => {
-          this.input = node;
-        }}
-        type="text"
-        size={size || 'small'}
-        style={{ width: width || 78 }}
-        value={inputValue}
-        onChange={this.handleInputChange}
-        onBlur={this.handleInputConfirm}
-        onPressEnter={this.handleInputConfirm}
-        {...ohterProps}
-      />
+      <Fragment>
+        <Input
+          ref={node => {
+            this.input = node;
+          }}
+          type="text"
+          size={size || 'small'}
+          style={{ width: width || 78 }}
+          value={inputValue}
+          onChange={this.handleInputChange}
+          onBlur={this.handleInputConfirm}
+          onPressEnter={this.handleInputConfirm}
+          {...ohterProps}
+        />
+        {
+          errorMsg && (<span className={styles.errorMsg}>{errorMsg}</span>)
+        }
+      </Fragment>
       ) : (
         canModify ? (
           <Tooltip placement={placement} title={text}>
