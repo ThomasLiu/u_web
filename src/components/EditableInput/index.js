@@ -22,11 +22,11 @@ class EditableInput extends Component {
   };
 
   handleInputChange = e => {
-    const { maxLength = 3 } = this.props;
-    if (maxLength) {
-      if (parseInt(maxLength) < e.target.value.length ) {
+    const { maxTextLength = 3 } = this.props;
+    if (maxTextLength) {
+      if (parseInt(maxTextLength) < e.target.value.length ) {
         this.setState({
-          errorMsg: getIntl(intl, 'base.max.text.length', `Up to ${maxLength} characters`, { num: maxLength })
+          errorMsg: getIntl(intl, 'base.max.text.length', `Up to ${maxTextLength} characters`, { num: maxTextLength })
         })
         return 
       }
